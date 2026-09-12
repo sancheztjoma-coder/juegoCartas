@@ -10,8 +10,14 @@ public class Jugador {
 
     private Carta[] cartas = new Carta[TOTAL_CARTAS];
     private Random r = new Random();
+    private Carta[] cartasCombinadas = new Carta[10];
+    private int posicionCombinadas = 0;
 
     public void repartir() {
+
+        cartasCombinadas = new Carta[10];
+        posicionCombinadas = 0;
+
         for (int i = 0; i < TOTAL_CARTAS; i++) {
             cartas[i] = new Carta(r);
         }
@@ -48,12 +54,20 @@ public class Jugador {
                 // if (contador >= 2) {
                 if (contadores[i] >= 2) {
                     resultado += Grupo.values()[contadores[i]] + " de " + NombreCarta.values()[i] + "\n";
-                }
+                    
+                    for (Carta carta : cartas) {
+                        if (carta.getNombre().ordinal() == i) {
+                            cartasCombinadas[posicionCombinadas] = carta;
+                            posicionCombinadas++;
+                        }
+
+                }   }
             }
+        
         }
         return resultado;
     }
-
+    
 
     public String getEscaleras() {
         boolean[][] matriz_cartas = new boolean[4][13];
@@ -107,6 +121,13 @@ public class Jugador {
                             int posicion = (i + c) % 13;
 
                             resultado += NombreCarta.values()[posicion] + "-";
+                            for (Carta carta : cartas) {
+                                if (carta.getPinta().ordinal() == p && carta.getNombre().ordinal() == posicion) {
+                                            cartasCombinadas[posicionCombinadas] = carta;
+                                            posicionCombinadas++;
+                                    
+                                }
+                            }
                         }
 
                         resultado += "\n";
@@ -129,5 +150,41 @@ public class Jugador {
 
         return resultado;
     }
+
+    public int getPuntaje() {
+
+        int puntaje = 0;
+
+        for (Carta carta : cartas) {
+
+            boolean combinada = false;
+
+            for (Carta cartaCombinada : cartasCombinadas) {
+
+                if (carta == cartaCombinada) {
+                    combinada = true;
+                }
+            }
+
+            if (!combinada) {
+
+                if (carta.getNombre() == NombreCarta.AS
+                    || carta.getNombre() == NombreCarta.JACK
+                    || carta.getNombre() == NombreCarta.QUEEN
+                    || carta.getNombre() == NombreCarta.KING) {
+
+                    puntaje += 10;
+
+                } else {
+                    puntaje += carta.getNombre().ordinal() + 1;
+                }
+            }
+        }
+
+        return puntaje;
 }
+
+
+}
+
 

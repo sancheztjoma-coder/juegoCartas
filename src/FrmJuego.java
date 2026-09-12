@@ -79,10 +79,14 @@ public class FrmJuego extends JFrame {
             case 0:
                 mensaje = jugador1.getGrupos();
                 mensaje += jugador1.getEscaleras();
+                mensaje += "\n";
+                mensaje += jugador1.getPuntaje();
                 break;
             case 1:
                 mensaje = jugador2.getGrupos();
                 mensaje += jugador2.getEscaleras();
+                mensaje += "\n";
+                mensaje += jugador2.getPuntaje();
                 break;
         }
         if (!mensaje.isEmpty()) {
