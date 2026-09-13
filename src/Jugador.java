@@ -13,6 +13,12 @@ public class Jugador {
     private Carta[] cartasCombinadas = new Carta[10];
     private int posicionCombinadas = 0;
 
+    
+    public void limpiarCombinadas() {
+        cartasCombinadas = new Carta[10];
+        posicionCombinadas = 0;
+    }
+    
     public void repartir() {
 
         cartasCombinadas = new Carta[10];
@@ -57,8 +63,7 @@ public class Jugador {
                     
                     for (Carta carta : cartas) {
                         if (carta.getNombre().ordinal() == i) {
-                            cartasCombinadas[posicionCombinadas] = carta;
-                            posicionCombinadas++;
+                            agregarCombinada(carta);
                         }
 
                 }   }
@@ -123,8 +128,7 @@ public class Jugador {
                             resultado += NombreCarta.values()[posicion] + "-";
                             for (Carta carta : cartas) {
                                 if (carta.getPinta().ordinal() == p && carta.getNombre().ordinal() == posicion) {
-                                            cartasCombinadas[posicionCombinadas] = carta;
-                                            posicionCombinadas++;
+                                            agregarCombinada(carta);
                                     
                                 }
                             }
@@ -149,6 +153,20 @@ public class Jugador {
         }
 
         return resultado;
+    }
+
+    
+    private void agregarCombinada(Carta carta) {
+
+        for (int i = 0; i < posicionCombinadas; i++) {
+
+            if (cartasCombinadas[i] == carta) {
+                return;
+            }
+        }
+
+        cartasCombinadas[posicionCombinadas] = carta;
+        posicionCombinadas++;
     }
 
     public int getPuntaje() {
