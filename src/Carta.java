@@ -10,11 +10,19 @@ import javax.swing.JPanel;
 public class Carta {
 
     private int indice;
+    private Pinta pinta;
+    private NombreCarta nombre;
 
     // método constructor
     public Carta(Random r) {
         // generar un numero al azar entre 1 y 52
         indice = r.nextInt(52) + 1;
+    }
+
+    public Carta(Pinta pinta, NombreCarta nombre) {
+        this.pinta = pinta;
+        this.nombre = nombre;
+        this.indice = pinta.ordinal() * 13 + nombre.ordinal() + 1;
     }
 
     public void mostrar(JPanel pnl, int x, int y) {
@@ -38,23 +46,11 @@ public class Carta {
 
     // Getters
     public Pinta getPinta() {
-        if (indice <= 13) {
-            return Pinta.TREBOL;
-        } else if (indice <= 26) {
-            return Pinta.PICA;
-        } else if (indice <= 39) {
-            return Pinta.CORAZON;
-        } else {
-            return Pinta.DIAMANTE;
-        }
+        return pinta;
     }
 
     public NombreCarta getNombre() {
-        int residuo = indice % 13;
-        if (residuo == 0) {
-            residuo = 13;
-        }
-        return NombreCarta.values()[residuo - 1];
+        return nombre;
     }
 
 }
