@@ -9,23 +9,21 @@ public class Jugador {
     private final int DISTANCIA = 40;
 
     private Carta[] cartas = new Carta[TOTAL_CARTAS];
-    private Random r = new Random();
-    private Carta[] cartasCombinadas = new Carta[10];
-    private int posicionCombinadas = 0;
-
-    
+    private Carta[] cartasCombinadas;
+    private int posicionCombinadas;
+ 
     public void limpiarCombinadas() {
         cartasCombinadas = new Carta[10];
         posicionCombinadas = 0;
     }
     
-    public void repartir() {
+    public void repartir(Baraja baraja) {
 
         cartasCombinadas = new Carta[10];
         posicionCombinadas = 0;
 
         for (int i = 0; i < TOTAL_CARTAS; i++) {
-            cartas[i] = new Carta(r);
+            cartas[i] = baraja.repartirCarta();
         }
     }
 
@@ -41,8 +39,8 @@ public class Jugador {
     }
 
     public String getGrupos() {
-        String resultado = "No se encontraron grupos";
-
+        String resultado = "No se encontraron grupos\n";
+        posicionCombinadas = 0;
         int[] contadores = new int[NombreCarta.values().length];
         boolean hayGrupos = false;
         for (Carta carta : cartas) {
@@ -76,7 +74,7 @@ public class Jugador {
 
     public String getEscaleras() {
         boolean[][] matriz_cartas = new boolean[4][13];
-
+        posicionCombinadas = 0;
         for (Carta carta : cartas) {
             int pinta = carta.getPinta().ordinal();
             int nombre = carta.getNombre().ordinal();
@@ -128,7 +126,7 @@ public class Jugador {
                             resultado += NombreCarta.values()[posicion] + "-";
                             for (Carta carta : cartas) {
                                 if (carta.getPinta().ordinal() == p && carta.getNombre().ordinal() == posicion) {
-                                            agregarCombinada(carta);
+                                    agregarCombinada(carta);
                                     
                                 }
                             }
@@ -149,7 +147,7 @@ public class Jugador {
         }
 
         if (!hayEscaleras) {
-            resultado = "No se encontraron escaleras";
+            resultado = "No se encontraron escaleras\n";
         }
 
         return resultado;
@@ -185,7 +183,6 @@ public class Jugador {
             }
 
             if (!combinada) {
-
                 if (carta.getNombre() == NombreCarta.AS
                     || carta.getNombre() == NombreCarta.JACK
                     || carta.getNombre() == NombreCarta.QUEEN
