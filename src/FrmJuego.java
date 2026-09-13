@@ -9,6 +9,7 @@ import javax.swing.JTabbedPane;
 
 public class FrmJuego extends JFrame {
 
+    private Baraja baraja = new Baraja(3);
     private JPanel pnlJugador1, pnlJugador2;
     private JTabbedPane tpJugadores;
 
@@ -64,11 +65,12 @@ public class FrmJuego extends JFrame {
     private Jugador jugador2 = new Jugador();
 
     private void repartir() {
+        baraja.barajar();
 
-        jugador1.repartir();
+        jugador1.repartir(baraja);
         jugador1.mostrar(pnlJugador1);
 
-        jugador2.repartir();
+        jugador2.repartir(baraja);
         jugador2.mostrar(pnlJugador2);
 
     }
@@ -81,14 +83,14 @@ public class FrmJuego extends JFrame {
         String mensaje = "";
         switch (tpJugadores.getSelectedIndex()) {
             case 0:
-                mensaje = jugador1.getGrupos();
-                mensaje += jugador1.getEscaleras();
+                mensaje = jugador1.getGrupos() + "\n";
+                mensaje += jugador1.getEscaleras() + "\n";
                 mensaje += "PUNTAJE:\n";
                 mensaje += jugador1.getPuntaje();
                 break;
             case 1:
-                mensaje = jugador2.getGrupos();
-                mensaje += jugador2.getEscaleras();
+                mensaje = jugador2.getGrupos() + "\n";
+                mensaje += jugador2.getEscaleras() + "\n";
                 mensaje += "PUNTAJE:\n";
                 mensaje += jugador2.getPuntaje();
                 break;
