@@ -29,7 +29,7 @@ public class Baraja {
     public Baraja(int cantidadBarajas) {
         this.cantidadBarajas = cantidadBarajas;
         this.random = new Random();
-        this.disponibles = new int[PintaCarta.values().length][NombreCarta.values().length];
+        this.disponibles = new int[Pinta.values().length][NombreCarta.values().length];
         barajar();
     }
 
@@ -54,13 +54,13 @@ public class Baraja {
 
         // Sortea combinaciones hasta encontrar una que todavía tenga copias disponibles
         do {
-            indicePinta = random.nextInt(PintaCarta.values().length);
+            indicePinta = random.nextInt(Pinta.values().length);
             indiceNombre = random.nextInt(NombreCarta.values().length);
         } while (disponibles[indicePinta][indiceNombre] <= 0);
 
         disponibles[indicePinta][indiceNombre]--;
 
-        PintaCarta pinta = PintaCarta.values()[indicePinta];
+        Pinta pinta = Pinta.values()[indicePinta];
         NombreCarta nombre = NombreCarta.values()[indiceNombre];
 
         return new Carta(pinta, nombre);
