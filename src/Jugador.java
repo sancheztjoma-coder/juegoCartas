@@ -40,7 +40,7 @@ public class Jugador {
 
     public String getGrupos() {
         String resultado = "No se encontraron grupos\n";
-        posicionCombinadas = 0;
+        
         int[] contadores = new int[NombreCarta.values().length];
         boolean hayGrupos = false;
         for (Carta carta : cartas) {
@@ -74,7 +74,7 @@ public class Jugador {
 
     public String getEscaleras() {
         boolean[][] matriz_cartas = new boolean[4][13];
-        posicionCombinadas = 0;
+        
         for (Carta carta : cartas) {
             int pinta = carta.getPinta().ordinal();
             int nombre = carta.getNombre().ordinal();
