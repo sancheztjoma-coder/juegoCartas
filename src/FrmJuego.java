@@ -19,6 +19,7 @@ public class FrmJuego extends JFrame {
         setTitle("Juego de Cartas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+        setLocationRelativeTo(null);
 
         JButton btnRepartir = new JButton("Repartir");
         btnRepartir.setBounds(10, 10, 100, 25);
@@ -85,13 +86,11 @@ public class FrmJuego extends JFrame {
             case 0:
                 mensaje = jugador1.getGrupos() + "\n";
                 mensaje += jugador1.getEscaleras() + "\n";
-                mensaje += "PUNTAJE:\n";
                 mensaje += jugador1.getPuntaje();
                 break;
             case 1:
                 mensaje = jugador2.getGrupos() + "\n";
                 mensaje += jugador2.getEscaleras() + "\n";
-                mensaje += "PUNTAJE:\n";
                 mensaje += jugador2.getPuntaje();
                 break;
         }

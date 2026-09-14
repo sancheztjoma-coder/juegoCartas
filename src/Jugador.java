@@ -123,7 +123,7 @@ public class Jugador {
                         for (int c = 0; c < cantidad; c++) {
                             int posicion = (i + c) % 13;
 
-                            resultado += NombreCarta.values()[posicion] + "-";
+                            resultado += NombreCarta.values()[posicion] + (c < cantidad-1 ? " - " : "");
                             for (Carta carta : cartas) {
                                 if (carta.getPinta().ordinal() == p && carta.getNombre().ordinal() == posicion) {
                                     agregarCombinada(carta);
@@ -167,8 +167,9 @@ public class Jugador {
         posicionCombinadas++;
     }
 
-    public int getPuntaje() {
+    public String getPuntaje() {
 
+        String sobrantes = "";
         int puntaje = 0;
 
         for (Carta carta : cartas) {
@@ -189,14 +190,20 @@ public class Jugador {
                     || carta.getNombre() == NombreCarta.KING) {
 
                     puntaje += 10;
-
+                    
                 } else {
                     puntaje += carta.getNombre().ordinal() + 1;
                 }
+                
+                sobrantes += carta.getNombre() + " de " + carta.getPinta() + "\n";
             }
         }
 
-        return puntaje;
+        sobrantes = "Sobran:\n" + sobrantes + "\n";
+        sobrantes += "PUNTAJE:\n" + puntaje;
+
+
+        return sobrantes;
 }
 
 
